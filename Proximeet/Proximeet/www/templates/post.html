@@ -141,7 +141,7 @@
                         <label class="item item-input theme-label"
                                 >
                             <p style="padding: 0;margin: 0">Slots</p>
-                            <input
+                            <input ng-keyup="slotKeyUp($event, data.slots)"
                                     type="number" placeholder="No of slots" ng-model="data.slots" name="slots"></label>
                         <label class="item item-input theme-label"
                                ng-class="{ 'has-error-lr' : postAdsForm.email.$invalid  && postAdsForm.$submitted}">

@@ -16,7 +16,17 @@ angular.module('ionicApp.postCtrl', [])
                         $scope.data.slots = undefined;
                     }
                 }
-            })
+            });
+            
+            $scope.slotKeyUp = function (e, value) {
+                var charCode = (e.which) ? e.which : e.keyCode;
+                if (charCode === 0) {
+                    document.activeElement.blur();
+                    alerter("Alert", "Decimal point is not allowed");
+                    $scope.data.slots = undefined;
+                    return false;
+                }
+            };
 
             $scope.$watch("data.cost", function (val) {
                 //console.log(val);
