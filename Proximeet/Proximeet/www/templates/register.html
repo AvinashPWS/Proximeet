@@ -1,0 +1,71 @@
+<ion-view view-title="Register">
+    <ion-content ng-controller="regCtrl">
+        <div class="padding">
+            <div class="logo_wrapper clearfix">
+                <img src="img/logo.png">
+            </div>
+
+                <div class="list">
+                    <form name="regForm" novalidate="" ng-submit="validateRegister(regForm)">
+                        <div class="register_container clearfix">
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : regForm.name.$invalid  && regForm.$submitted}">
+
+                                <input type="text" ng-model="reg.name" name="name" required="required" placeholder="Name">
+                            </label>
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : regForm.user_name.$invalid  && regForm.$submitted}">
+
+                                <input type="text" ng-model="reg.user_name" name="user_name" required="required" placeholder="User Name">
+                            </label>
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : regForm.email.$invalid  && regForm.$submitted}">
+
+                                <input type="email" ng-model="reg.email" name="email" required="required" placeholder="Email">
+                            </label>
+                            <div class="error_container">
+
+                                <div class="each_error_toast_wrapper" ng-messages="regForm.email.$error" role="alert">
+                                    <div class="error_messages" ng-message="email"><i class="icon ion-alert-circled"></i>Please enter the valid email address</div>
+
+                                </div>
+
+                            </div>
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : regForm.password.$invalid  && regForm.$submitted}">
+
+                                <input type="password" ng-model="reg.password" name="password" ng-minlength="6"
+                                       ng-maxlength="25" required="required" placeholder="Password">
+                            </label>
+                            <div class="error_container">
+
+                                <div class="each_error_toast_wrapper" ng-messages="regForm.password.$error" role="alert">
+                                    <div class="error_messages" ng-message="minlength"><i class="icon ion-alert-circled"></i>Password is too short It should be min 6 char</div>
+                                    <div class="error_messages"  ng-message="maxlength"><i class="icon ion-alert-circled"></i>Password field is too long</div>
+                                </div>
+
+                            </div>
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : regForm.phone.$invalid  && regForm.$submitted}">
+
+                                <input type="tel" ng-model="reg.phone_no" name="phone" ng-minlength="10"
+                                       ng-maxlength="10" required="required" placeholder="Phone">
+                            </label>
+                            <div class="error_container">
+
+                                <div class="each_error_toast_wrapper" ng-messages="regForm.phone.$error" role="alert">
+                                    <div class="error_messages" ng-message="minlength"><i class="icon ion-alert-circled"></i>Phone .no is too short It should be min 10 digit</div>
+                                    <div class="error_messages"  ng-message="maxlength"><i class="icon ion-alert-circled"></i>Phone .no field is too digit</div>
+                                </div>
+
+                            </div>
+                            <button class="  button-theme  " ng-click="register()">Register</button>
+                        </div>
+                    </form>
+                </div>
+
+        </div>
+
+
+    </ion-content>
+</ion-view>

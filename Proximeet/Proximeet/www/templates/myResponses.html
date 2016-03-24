@@ -1,0 +1,111 @@
+<ion-view ng-controller="myResponsesCtrl" view-title="My Enrolled Events">
+    <ion-nav-buttons side="right">
+        <button ng-click="gotoMenuThree()" style="border: 1px solid #fff;border-radius: 50%;" class="button button-icon button-clear ion-more theme_icon_button">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <!--<div class="error-message" ng-show="showLoginError">
+             <span><i class="ionic ion-alert-circled"></i></span><h3>Please login to continue</h3>
+        </div>-->
+
+
+            <div ng-hide="showLoginError"  class="lrPadding" ng-repeat="searcPosts in list track by $index">
+                <!--<div class="eachSearchedPost">-->
+
+                    <!--<div class="image_text_container clearfix">-->
+                        <!--<div class="image_container">-->
+                            <!--<img actual-src="http://gd.pacewisdom.com/uploads/post/{{searcPosts.Post.image}}"-->
+                                 <!--ng-src="img/default.png"/>-->
+                            <!--<div class="float_button" ng-click="gotoDetailPage(searcPosts)">-->
+                                <!--<span class="float_icon"><i class="ionic ion-chevron-right"></i></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="post_text ">-->
+                            <!--<div class="search_posted_title padding_title">-->
+                                <!--<h3>{{searcPosts.Post.title}}</h3>-->
+                            <!--</div>-->
+
+                            <!--<div class="list_bottom_padding clearfix">-->
+                                <!--<span><i class="ionic ion-checkmark"></i>33</span><span><i-->
+                                    <!--class="ionic ion-chatbubbles"></i>33</span><span><i class="ionic ion-star"></i>33</span>-->
+                                <!--<div class="more_button">-->
+                                    <!--<span><i class="ionic ion-android-more-vertical"></i></span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="paddetails" ng-style="checkDate(searcPosts.Post.end_datetime) == true? { opacity:0.3 } : { opacity:1 }">
+                    <div class="adsttbox">
+                        <div class="adsurbox"><img src="img/adsupi.png" width="15" height="19"></div>
+                        <div class="adsrtbox"><img src="img/adsrat.png" width="15" height="16"></div>
+                        <h4 class="add_title ng-binding">{{searcPosts.Post.title}}  <span class="chatcnt">{{getRemainingCnt(searcPosts)}}</span></h4>
+
+
+
+                        <div class="adsmrbox" ng-click="showDetails(searcPosts.Post.post_id,searcPosts.Post.venue_time,searcPosts.Post.end_datetime)"><i class="ion-android-more-vertical"></i></div>
+
+                    </div>
+                    <div class="row adsdetails"  ng-click="!checkDate(searcPosts.Post.end_datetime)&& gotoDetailPage(searcPosts)">
+                        <div class="col col-50">
+                            <div class="add_img_wapper"><img actual-src="{{ROUTES}}uploads/post/{{searcPosts.Post.image}}"
+                                                             ng-src="{{ROUTES}}uploads/categories/{{searcPosts.Category.file_path}}" width="100%" height="auto"></div>
+                        </div>
+                        <div class="col col-50">
+                            <p class="ng-binding twosided">{{searcPosts.Post.summary}}</p>
+                        </div>
+                    </div>
+                    <div class="detadhere">
+                        <div class="dkbox">
+                            <p>Start Date</p>
+                        </div>
+                        <div class="ltbox">
+                            <p class="ng-binding">{{searcPosts.Post.from_date}}</p>
+                        </div>
+                        <div class="dkbox">
+                            <p>Price</p>
+                        </div>
+                        <div class="ltbox">
+                            <p>{{searcPosts.Post.costing}}</p>
+                        </div>
+                    </div>
+                    <div class="detadhere">
+                        <div class="dkbox">
+                            <p>End Date</p>
+                        </div>
+                        <div class="ltbox">
+                            <p>{{searcPosts.Post.to_date}}</p>
+                        </div>
+                        <div class="dkbox">
+                            <p>Rating</p>
+                        </div>
+                        <div class="ltbox">
+                            <p>{{searcPosts.Post.rating}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        <ion-infinite-scroll
+                on-infinite="loadMore($event)"
+                distance="1%">
+        </ion-infinite-scroll>
+
+
+        <script id="review_post.html" type="text/ng-template">
+
+            <div class="review_container clearfix">
+                <rating ng-model="data.rating" max="5" min="0"></rating>
+                <h3>{{data.rating}} Star</h3>
+                <textarea ng-hide="data.disableTextArea " class="text_area_style" placeholder="write a review" ng-model="data.message" ng-bind="data.message"></textarea>
+            </div>
+
+        </script>
+        <script id="abused_post.html"  type="text/ng-template">
+            <textarea class="text_area_style" placeholder="Report message" ng-model="data.message_abuse"></textarea>
+        </script>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,61 @@
+<ion-view view-title="Profile Settings">
+    <ion-content class="padding" ng-controller="profileSettingsCtrl">
+        <div class="padding">
+            <ion-list>
+                <div class="list">
+                    <form name="profileForm" novalidate="" ng-submit="validateProfile(profileForm,userImg)">
+                        <label class="item item-input item-stacked-label theme-label"
+                               ng-class="{ 'has-error-lr' : profileForm.name.$invalid  && profileForm.$submitted}">
+                          <span>Name</span>
+
+                            <input type="text" ng-model="pro.name" name="name" placeholder="Name" ng-required="true">
+                        </label>
+
+                        <label class="item item-input item-stacked-label theme-label"
+                               ng-class="{ 'has-error-lr' : profileForm.user_name.$invalid  && profileForm.$submitted}">
+                          <span>User Name</span>
+
+
+
+                            <input type="text" ng-model="pro.user_name" name="user_name" placeholder="User Name"
+                                   ng-required="true">
+                        </label>
+
+                        <label class="item item-input item-stacked-label theme-label"
+                               ng-class="{ 'has-error-lr' : profileForm.email.$invalid  && profileForm.$submitted}">
+                          <span>Email</span>
+                            <input type="email" ng-model="pro.email" placeholder="Your Email" ng-required="true" name="email">
+                        </label>
+
+
+                        <label class="item item-input item-stacked-label theme-label"
+                               ng-class="{ 'has-error-lr' : profileForm.phone_no.$invalid  && profileForm.$submitted}">
+                          <span>Phone</span>
+                            <input type="tel" ng-model="pro.phone_no" placeholder="Your Phone" ng-required="true" name="phone_no"
+                                   ng-minlength="10" required ng-maxlength="10">
+                        </label>
+
+
+                        <label class="item item-input item-stacked-label theme-label"
+                             >
+                          <span>Location</span>
+
+                            <input type="text" ng-model="pro.address" placeholder="Your Address">
+                        </label>
+
+                        <label class="item item-input item-stacked-label theme-label">
+                          <span>Update Profile Image</span>
+
+                            <input class="no-background-clr" type="tel" ng-model="userImg"
+                                   placeholder="Add Profile Image" readonly="readonly"
+                                   ng-click="showImageSelect()">
+                        </label>
+
+                        <button class="button button-block button-theme  button-calm" ng-click="updateProfile()">Submit
+                        </button>
+                    </form>
+                </div>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-view>

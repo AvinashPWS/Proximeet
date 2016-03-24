@@ -1,0 +1,215 @@
+<ion-view view-title="Edit ProxiMeet Event">
+    <ion-content class="padding" ng-controller="editPostCtrl">
+        <div class="padding">
+            <ion-list>
+                <div class="list">
+                    <form name="postAdsForm" novalidate="" ng-submit="postAnAd(postAdsForm,imagePath)">
+
+
+                        <div class="item item-input theme-label theme-select item-select select-clr"
+                             ng-class="{ 'has-error-lr' : postAdsForm.category.$invalid  && postAdsForm.$submitted}">
+                            <div class="input-label ">
+                                Category *
+                            </div>
+                            <select ng-model="data.category_id" required="required" name="category">
+                                <option value="{{categories.Category.category_id}}"
+                                        ng-selected="categories.Category.name === selected_name"
+                                        ng-repeat="categories in listOfCategories">
+                                    {{categories.Category.name}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <span style="color: #8d8d8d">Title *</span>
+                        <label class="item item-input theme-label"
+                               ng-class="{ 'has-error-lr' : postAdsForm.title.$invalid  && postAdsForm.$submitted}"><input
+                                type="text" placeholder="Title" ng-model="data.title" name="title"
+                                required="required"></label>
+                        <span style="color: #8d8d8d">Summary</span>
+                        <label class="item item-input theme-label"
+                                ><textarea
+                                type="text" placeholder="Summary" ng-model="data.summary" name="summary"
+                                ></textarea></label>
+                        <span style="color: #8d8d8d">Purpose</span>
+                        <label class="item item-input theme-label"
+                                ><input
+                                type="text" placeholder="Purpose" ng-model="data.purpose" name="purpose"
+                                ></label>
+
+                        <div class="row" style="padding: 0">
+                            <div class="col-50" style="padding-right: 5px">
+                                <label class="item item-input theme-label"
+                                       ng-class="{ 'has-error-lr' : postAdsForm.fromdate.$invalid  && postAdsForm.$submitted}">
+                                    <p style="padding: 0;margin: 0">Start Date *</p>
+                                    <input
+                                            readonly="readonly" style="background: none" type="text"
+                                            placeholder="From Date"
+                                            ng-model="data.fromDate" ng-click="fromDateTrig()" ng-bind="data.fromDate"
+                                            name="fromdate" required="required"></label>
+                            </div>
+                            <div class="col-50" style="padding-left: 5px">
+                                <!--start time-->
+
+
+
+                                <label class="item item-input theme-label"
+                                       ng-class="{ 'has-error-lr' : postAdsForm.fromTime.$invalid  && postAdsForm.$submitted}">
+                                    <p style="padding: 0;margin: 0">Start Time *</p>
+                                    <input
+                                            readonly="readonly" style="background: none" type="text"
+                                            placeholder="From Time"
+                                            ng-model="data.fromTime" ng-click="fromTimeTrig()" ng-bind="data.fromTime"
+                                            name="fromTime" required="required"></label>
+
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding: 0">
+                            <div class="col-50" style="padding-right: 5px">
+                                <label class="item item-input theme-label"
+                                       ng-class="{ 'has-error-lr' : postAdsForm.todate.$invalid  && postAdsForm.$submitted}">
+                                    <p style="padding: 0;margin: 0">End Date</p>
+                                    <input
+                                            readonly="readonly" style="background: none" type="text"
+                                            placeholder="End Date"
+                                            ng-model="data.toDate" ng-click="toDateTrig()" ng-bind="data.toDate"
+                                            name="todate"
+                                            ></label>
+                            </div>
+                            <div class="col-50" style="padding-left: 5px">
+                                <label class="item item-input theme-label"
+                                       ng-class="{ 'has-error-lr' : postAdsForm.toTime.$invalid  && postAdsForm.$submitted}">
+                                    <p style="padding: 0;margin: 0">End Time</p>
+                                    <input
+                                            readonly="readonly" style="background: none" type="text"
+                                            placeholder="End Time"
+                                            ng-model="data.toTime" ng-click="toTimeTrig()" ng-bind="data.toTime"
+                                            name="toTime"
+                                            ></label>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="padding: 0">
+                            <div class="col-50" style="padding-right: 5px">
+                                <label class="item item-input theme-label theme-select item-select select-clr">
+                                    <div class="input-label">
+                                        Costing
+                                    </div>
+                                    <select ng-model="data.costmethod" name="cost">
+                                        <optgroup label="Select costing method">
+                                            <option value="0" selected="selected">Free</option>
+                                            <option value="1">Paid</option>
+                                        </optgroup>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-50" style="padding-left: 5px">
+                                <label class="item item-input theme-label"  ng-class="{ 'has-error-lr' : postAdsForm.cost.$invalid  && postAdsForm.$submitted}">
+
+                                    <input type="number" ng-disabled="costdisable"
+                                           placeholder="Cost in Rupee"
+                                           ng-model="data.cost" name="cost" ng-required="isCostRequired" ></label>
+                            </div>
+                        </div>
+
+
+                        <span style="color: #8d8d8d">Address *</span>
+                        <label class="item item-input theme-label theme-select "
+                               ng-class="{ 'has-error-lr' : postAdsForm.address.$invalid  && postAdsForm.$submitted}">
+                            <input type="text" ng-model="data.location" name="address" placeholder="Address" readonly
+                                   ng-click="getLocationAddress()" ng-change="updateLatLon()" required="required">
+                        </label>
+
+                        <label ng-hide="true" class="item item-input theme-label"
+                               ng-class="{ 'has-error-lr' : postAdsForm.location.$invalid  && postAdsForm.$submitted}"><input
+                                style="background: none" readonly="readonly" type="text" placeholder="Pick Location"
+                                ng-model="data.latlon" ng-click="openMapSelector()" name="location" required="required"></label>
+                        <span style="color: #8d8d8d">Slots</span>
+                        <label class="item item-input theme-label"
+                                ><input
+                                type="number" placeholder="No of slots" ng-model="data.slots" name="slots"
+                                ></label>
+                        <span style="color: #8d8d8d">Email *</span>
+                        <label class="item item-input theme-label"
+                               ng-class="{ 'has-error-lr' : postAdsForm.email.$invalid  && postAdsForm.$submitted}"><input ng-disabled="true"
+                                type="email" placeholder="Email" ng-model="data.email" name="email" required="required"></label>
+                        <span style="color: #8d8d8d">Phone *</span>
+                        <label class="item item-input theme-label"
+                               ng-class="{ 'has-error-lr' : postAdsForm.phone.$invalid  && postAdsForm.$submitted}"><input ng-disabled="true"
+                                 type="tel" placeholder="Phone" ng-model="data.phone" ng-minlength="10"
+                                ng-maxlength="13"
+                                required="required" name="phone"></label>
+                        <span style="color: #8d8d8d">Image</span>
+                        <label class="item item-input theme-label"><input style="background: none" type="text"
+                                                                          placeholder="Change image"
+                                                                          ng-model="imagePath" readonly="readonly"
+                                                                          ng-click="showImageSelect()"></label>
+
+                        <div class="image_wrapper">
+                            <img ng-src="{{imagePath}}"/>
+                        </div>
+
+                        <div class="image_wrapper" ng-hide="hideOldImg">
+                            <p>Old Image</p>
+                            <img ng-src="{{ROUTES}}uploads/post/{{oldImg}}">
+                        </div>
+                        <!--<button class="button-full button button-calm" ng-click="postAnAd()">Send</button>-->
+                        <button class="button button-block button-theme  button-calm">Submit</button>
+
+                    </form>
+                </div>
+
+
+            </ion-list>
+        </div>
+        <!--{{test}}-->
+    </ion-content>
+</ion-view>
+<script id="pickLocation.html" type="text/ng-template">
+    <div class="modal">
+        <div class="pick_location clearfix">
+            <ion-header-bar class="model_header_style">
+                <h1 class="title text_white">Select Location</h1>
+
+                <div class="button button-clear" ng-click="closeModal()"><span class="icon ion-close text_white"></span>
+                </div>
+            </ion-header-bar>
+            <ion-content has-bouncing="false" has-header="true" class="map_container clearfix">
+                <div id="map" style="width: 100%;height: 100%!important;"></div>
+
+                <div class="bar bar-footer footer_transparent">
+                    <button class="round_button_post  icon ion-checkmark navigate_button"
+                            ng-click="closeModal()"></button>
+                </div>
+                <!--<button class="button button-full button-calm save_button" ng-click="closeModal()">Save Loaction-->
+                <!--</button>-->
+            </ion-content>
+        </div>
+    </div>
+</script>
+<script id="selectAddress.html" type="text/ng-template">
+    <div class="modal">
+        <div class="pick_location clearfix">
+            <ion-header-bar class="model_header_style_address">
+
+                <label class="item-input-wrapper">
+                    <input class="search_address no-border-search" ng-model="data.searchAddress" type="text" placeholder="Your Address">
+                </label>
+                <button class="button button-clear button-assertive" ng-click="clearAddress()">
+                    Clear
+                </button>
+
+            </ion-header-bar>
+            <ion-content has-bouncing="true" has-header="true">
+                <ion-list>
+                    <ion-item ng-repeat="location in locations" type="item-text-wrap"
+                              ng-click="selectLocation(location)">
+                        {{location.formatted_address}}
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+
+        </div>
+    </div>
+</script>

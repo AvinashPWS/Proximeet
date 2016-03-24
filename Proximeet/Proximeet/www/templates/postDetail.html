@@ -1,0 +1,352 @@
+<ion-view ng-controller="postDetailCtrl" cache-view="true">
+  <ion-nav-title>
+    {{titleBar}}
+  </ion-nav-title>
+  <ion-nav-buttons side="right" ng-show="enableReview">
+    <button ng-show="shareBtn" class="button button-icon button-clear ion-android-share-alt"
+      ng-click="shareThisPost()"></button>
+
+        <span ng-click="enableReview&&gotoReviews()">
+             <div class="card-count"><p ng-show=showReviewBubble>{{reviewLen}}</p></div>
+
+          <button ng-show=showReviewBubble
+                  class="button button-icon button-clear ion-chatbubbles list-header-button-margin-right"
+            >
+          </button>
+        </span>
+
+    <!--  <button class="button button-icon button-clear ion-ios-search-strong" ng-click="openOptionModal()">
+      </button>-->
+
+
+  </ion-nav-buttons>
+  <ion-content>
+
+    <div class="image_container">
+      <img actual-src="{{ROUTES}}uploads/post/{{postDetail.Post.image}}"
+           ng-src="{{ROUTES}}uploads/categories/{{postDetail.Category.file_path}}"/>
+    </div>
+    <div class="detail_wrapper clearfix">
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Provided by
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.User.name}}
+          </div>
+        </div>
+      </div>
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Title
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.title}}
+          </div>
+        </div>
+      </div>
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Summary
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.summary}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Purpose
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.purpose}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            From Date
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.from_date}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            To Date
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.to_date}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Venue Time
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.from_date}} {{postDetail.Post.from_time}}
+          </div>
+        </div>
+      </div>
+
+
+      <div ng-show="isInfoShown" class="row full-backgnd" ng-style="!isInfoShown? { border: none } :false">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Phone
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.phone_no}}
+          </div>
+        </div>
+      </div>
+      <div ng-show="isInfoShown" class="row full-backgnd" ng-style="!isInfoShown? { border: none } :false">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Email
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.email}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Cost
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.costing}}
+          </div>
+        </div>
+      </div>
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Total Slots
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{slots}}
+          </div>
+        </div>
+      </div>
+      <!--<div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Map
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+           <span ng-click="openGoogleMaps(postDetail.Post.location)">View in google maps</span>
+          </div>
+        </div>
+      </div>
+    </div>-->
+      <div class="row full-backgnd">
+        <div class="col-33">
+          <div class="lpart-Table">
+            Location
+          </div>
+        </div>
+        <div class="col-67">
+          <div class="rpart-Table">
+            {{postDetail.Post.location}}
+          </div>
+        </div>
+      </div>
+
+      <div class="map_wrap clearfix" ng-click="openGoogleMaps(postDetail.Post.location)">
+        <div class="map_detail" id="map_detail"></div>
+      </div>
+    </div>
+    <div class="btn_group" ng-hide="isUserIsOwner">
+      <div class="row">
+        <div class="col-50">
+          <button ng-disabled="buttonDisable" class="button  nty-width-left button-theme  button-calm"
+                  ng-click="wantToJQ(joinStat)">{{buttonText}}
+          </button>
+        </div>
+        <div class="col-50">
+          <button class="button  nty-width-right button-theme  button-calm" ng-click="wantTochat()">I Want to
+            Chat
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+    <!--  <div class="padding">
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-person"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">User Name</h4>
+                  <p class="detail_text">{{postDetail.User.name}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-flag"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Title</h4>
+                  <p class="detail_text">{{postDetail.Post.title}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-clipboard"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Summary</h4>
+                  <p class="detail_text">{{postDetail.Post.summary}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-clipboard"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Purpose</h4>
+                  <p class="detail_text">{{postDetail.Post.purpose}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-calendar"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">From Date</h4>
+                  <p class="detail_text">{{postDetail.Post.from_date}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-calendar"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">To Date</h4>
+                  <p class="detail_text">{{postDetail.Post.to_date}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-android-time"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Venue Time</h4>
+                  <p class="detail_text">{{postDetail.Post.from_date}} {{postDetail.Post.from_time}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-ios-location"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Location</h4>
+                  <p class="detail_text">{{postDetail.Post.location}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-ios-pulse-strong"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Status</h4>
+                  <p class="detail_text">{{postDetail.Post.status}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-android-call"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Phone</h4>
+                  <p class="detail_text">{{postDetail.Post.phone_no}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-android-mail"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Email</h4>
+                  <p >{{postDetail.Post.email}}</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><i class="detail-icons icon ion-cash"></i></div>
+              <div class="col col-80">
+                  <h4 class="detail_header">Cost</h4>
+                  <p class="detail_text">{{postDetail.Post.costing}}</p>
+              </div>
+          </div>
+          <div  ng-hide="isUserIsOwner">
+              <div class="row">
+                  <div class="col-50"><button ng-disabled="buttonDisable" class="button  nty-width-left button-theme  button-calm" ng-click="wantToJQ(joinStat)">{{buttonText}}</button></div>
+                  <div class="col-50"><button class="button  nty-width-right button-theme  button-calm" ng-click="wantTochat()">I Want to Chat</button></div>
+              </div>
+
+
+          </div>
+      </div>-->
+    <!--<p>{{name_prev}}</p>-->
+
+    <!--<p>{{postDetail}}</p>-->
+    <script id="viewReview.html" type="text/ng-template">
+      <div class="modal">
+        <div class="pick_location clearfix">
+          <ion-header-bar class="model_header_style">
+            <h1 class="title text_white">Reviews ({{reviewLen}})</h1>
+
+            <div class="button button-clear" ng-click="closeModal()"><span
+              class="icon ion-checkmark text_white"></span>
+            </div>
+          </ion-header-bar>
+          <ion-content has-bouncing="true" has-header="true" class="posted_list_view_container clearfix">
+            <div class="review_container  clearfix">
+              <!--{{reviewArr}}-->
+
+              <div class="each_review_container clearfix" ng-repeat="eachReview in reviewArr">
+                <div class="row">
+                  <div class="col-33">
+                    <div class="user_image_wrap">
+                      <img ng-src="{{eachReview.User.image_path}}" err-src="img/profile_image.png"/>
+                    </div>
+                  </div>
+                  <div class="col-67">
+                    <div class="review_msg_wrapp">
+                      <h4 class="user_name">{{eachReview.User.name}}</h4>
+
+                      <div class="user_rating_review clearfix">
+                        <div class="user_rating_dom_review"
+                             ng-style="{ 'width' : getrateWidth(eachReview.rating)+'%' }"></div>
+                        <img src="img/rating_grey.png"></div>
+                      <p>{{eachReview.message}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ion-content>
+        </div>
+      </div>
+    </script>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,86 @@
+<ion-view view-title="Login">
+    <ion-content ng-controller="loginCtrl">
+        <div class="padding">
+            <div class="logo_wrapper clearfix">
+                <img src="img/logo.png">
+            </div>
+            <ion-list>
+                <div class="list">
+                    <form name="loginForm" novalidate="">
+                        <!--<form name="loginForm" novalidate="">-->
+                        <div class="login_wrapper clearfix">
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : loginForm.email.$invalid  && loginForm.$submitted}">
+
+                                <input type="email" ng-model="user.email" name="email" placeholder="User's Email ID"
+                                       required="required">
+                            </label>
+                            <label class="item item-input item-stacked-label theme-label"
+                                   ng-class="{ 'has-error-lr' : loginForm.password.$invalid  && loginForm.$submitted}">
+
+                                <input type="password" ng-model="user.password" name="password" placeholder="Password"
+                                       ng-minlength="6"
+                                       ng-maxlength="25" required="required">
+                            </label>
+                            <!--<div class="error_container">
+
+
+                                <div class="each_error_toast_wrapper" ng-messages="loginForm.password.$error" role="alert">
+                                    <div class="error_messages" ng-message="minlength"><i class="icon ion-alert-circled"></i>Password is too short It should be min 6 char</div>
+                                    <div class="error_messages"  ng-message="maxlength"><i class="icon ion-alert-circled"></i>Password field is too long</div>
+                                </div>
+
+                            </div>-->
+
+                            <div class="login_button_wrapper">
+                                <div class="each_button">
+                                    <button class="button-theme  button_float_left grey-button" ng-click="gotoReg()">
+                                        Sign up
+                                    </button>
+                                </div>
+                                <div class="each_button">
+
+                                    <button class="button-theme button_float_right" ng-click="validateLogin(loginForm)">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- <div class="wrapper check_box_wrapper">
+                                 <input type="checkbox" name="toggle" ng-model="testLog" ng-click="validateLogin(loginForm)"  id="toggle">
+                                 <label for="toggle"></label>
+                             </div>-->
+                        </div>
+
+
+                    </form>
+                    <!--    <div class="login_wrapper">
+                            <button class="button button-block button-theme  button-calm" ng-click="gotoReg()">Register
+                            </button>
+                            <button class="button button-block button-theme  button-calm" ng-click="gotoForgot()">Forgot
+                            </button>
+                        </div>
+    -->
+
+
+                    <div class="alternative_text"><span class="lines"></span><span class="text">Alternative Login</span><span
+                            class="lines"></span></div>
+
+                    <div class="social_button_container clearfix">
+                        <button class="facebook" ng-click="loginFacebook()">
+                            <img src="img/facebook.png">
+                        </button>
+                        <button class="google" ng-click="loginGoogle()">
+                            <img src="img/google_plus.png">
+                        </button>
+                    </div>
+
+                </div>
+              <a href="#" class="forgot-password" ng-click="gotoForgot()">Forgot password</a>
+
+
+            </ion-list>
+        </div>
+
+
+    </ion-content>
+</ion-view>
