@@ -1,0 +1,10 @@
+
+                            var sampleArr = Object.keys(obj).map(function (key) {return obj[key]});
+
+
+
+                             $scope.$on('$ionicView.beforeEnter', function () {
+
+
+
+                                    });

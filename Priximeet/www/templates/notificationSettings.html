@@ -1,0 +1,27 @@
+<ion-view view-title="Notification & Preferences">
+    <ion-content>
+      <ul class="list">
+
+        <li class="item item-toggle">
+          Chat Notification
+          <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="chatNotification" ng-change="chatNotificationChange()">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+        <li class="item item-toggle">
+          Event Update Notification
+          <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="eventUpdateNotification" ng-change="eventUpdateNotificationChanged()">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+
+
+      </ul>
+    </ion-content>
+</ion-view>

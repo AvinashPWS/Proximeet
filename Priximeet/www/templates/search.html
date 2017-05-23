@@ -1,0 +1,327 @@
+<ion-view view-title="Home" ng-controller="searchCtrl" cache-view="true">
+    <ion-nav-buttons side="right">
+
+        <button ng-show="showFilterText" class="filter-max-wid button button-icon button-clear theme_icon_button" ng-click="getLocationAddress()"><img class="filter-icn" ng-src="img/filter.png">{{filterText}}
+        </button>
+
+        <div class="card-count">
+            <p ng-show="showCount">
+                <span ng-if="AdminID===loggedInUser"> {{data.cardsCount}} </span>
+                <span ng-if="AdminID!==loggedInUser"> {{data.cardsCount - 1}} </span>                
+            </p>
+        </div>
+        <button class="button button-icon button-clear ion-android-list list-header-button-margin-right"
+                ng-click="gotoListSearch()">
+        </button>
+        <!--  <button class="button button-icon button-clear ion-ios-search-strong" ng-click="openOptionModal()">
+          </button>-->
+
+
+
+        <button ng-click="gotoMenuThree()" style="border: 1px solid #fff;border-radius: 50%;" class="button button-icon button-clear ion-more theme_icon_button">
+        </button>
+
+
+    </ion-nav-buttons>
+    <!--<ion-content has-bouncing="false" has-header="true" ng-init="callInit()">-->
+    <ion-content has-bouncing="false" has-header="true" ng-init="callInit()" style="overflow: hidden">
+
+
+        <div class="swipe_card_container clearfix" ng-controller="CardsCtrl">
+            <div class="swipe_card_wrapper">
+                <!-- <div class="stack_container clearfix" ng-show="showCardStack">
+                     <img src="img/card_stack1.png">
+                 </div>-->
+
+                <swipe-cards>
+                    <swipe-cards>
+
+                        <swipe-card ng-class="(card.title.toUpperCase() === 'DEFAULT CARD')?'adminCard':getBackGroundClass(card)" ng-show="toggleDefaultCard(card)" style="z-index:{{card.zIndex}};opacity:{{card.opacity}}"
+                                    ng-repeat="card in cards"
+                                    on-destroy="cardDestroyed($index)"
+                                    on-card-swipe="cardSwiped($index)">
+                            <div ng-if="card.title.toUpperCase() === 'DEFAULT CARD'">
+                                <div class="title">
+                                    <p class="text-center main-title-search card-title heading">
+                                        Help
+                                    </p>
+                                </div>
+                                <p style="padding: 5px 10px;">
+                                    Please Contact Admin for Help and Support
+                                </p>
+                                <div class="row" style="padding-top: 0;padding-bottom: 0">
+                                    <div class="col col-50" style="padding-bottom: 0">
+                                        <div class="button-bar">
+                                            <button class="button_respond" ng-click="wantToChatWithAdmin()">
+                                                Contact Admin
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col col-50 num-container"
+                                         style="padding-top: 0;padding-bottom: 0;padding-right: 0">
+                                        <div class="user_posted_container clearfix">                                            
+                                            <div class="user_image">
+                                                <img ng-src="img/profile_image.png"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div ng-if="card.title !== 'Default card'">
+                                <div class="title">
+                                    <p class="post_day_stat">{{card.detail_obj.Post.starts}}</p>
+
+                                    <p class="post_day_stat">{{card.detail_obj.Post.days}}</p>
+
+                                    <p class="post_day_stat">{{card.detail_obj.Post.ends}}</p>
+
+                                    <p class="text-center main-title-search card-title heading">{{card.title}}
+
+                                    <p>
+
+                                    <p class="text-center card-location">{{card.location}}</p>
+
+                                    <div class="float-right num-wrapper">
+                                        <span ng-if="AdminID===loggedInUser"> {{card.index}}/{{card.total}} </span>
+                                        <span ng-if="AdminID!==loggedInUser"> {{card.index}}/{{card.total - 1}} </span>
+                                    </div>
+                                </div>
+                                <!--<div class="image">-->
+                                <!--<img ng-src="{{card.image}}">-->
+                                <!--</div>-->
+                                <p style="padding: 5px 10px;">{{card.summary}}
+                                </p>
+
+                                <div class="row" style="padding-top: 0;padding-bottom: 0">
+                                    <div class="col col-50" style="padding-bottom: 0">
+                                        <div class="button-bar">
+                                            <button class="button_respond" ng-click="gotoDetail(card.detail_obj)">
+                                                View Details
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="col col-50 num-container"
+                                         style="padding-top: 0;padding-bottom: 0;padding-right: 0">
+                                        <div class="user_posted_container clearfix"
+                                             ng-click="gotoUserAdProfile(card.detail_obj)">
+                                            <div class="user_text">
+                                                <p class="name">{{card.detail_obj.User.name}}</p>
+
+                                                <div class="user_rating clearfix">
+                                                    <div class="user_rating_dom"
+                                                         ng-style="{ 'width' : card.detail_obj.User.rating + '%' }"></div>
+                                                    <img src="img/rating_white_bg.png"></div>
+                                            </div>
+                                            <div class="user_image">
+                                                <img actual-src="{{card.detail_obj.User.image_path}}"
+                                                     ng-src="img/profile_image.png"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </swipe-card>
+                    </swipe-cards>
+            </div>
+        </div>
+        <div class="map_container_search clearfix">
+            <div id="map-canvas"></div>
+            <div class="search_btn_container clearfix">
+                <!--<a href="#" class="button button-full button-assertive" ng-click="openListModel()">-->
+                <!--List View-->
+                <!--</a>-->
+
+                <!--<a href="#" class="button button-full button-assertive" ng-click="openOptionModal()">-->
+                <!--Search option-->
+                <!--</a>-->
+                <div class="transparent_background">
+
+                </div>
+            </div>
+            <div class="bar bar-footer footer_transparent">
+                <div class="map_address_bar_container clearfix" ng-click="getLocationAddress()">
+                    <p class=searach_icon><i class="icon ion-ios-search-strong"></i></p>
+
+                    <p class="addres_text">{{addressFromMap}}</p>
+
+
+                    <p class="rad_in_km">{{currRad}}</p>
+                </div>
+                <button class="round_button  icon ion-android-expand navigate_button" ng-click="getMeNow()"></button>
+                <button class="round_button2  icon ion-navigate navigate_button" ng-click="markCurrentLocation()"></button>
+            </div>
+        </div>
+
+
+        <script id="searchOption.html" type="text/ng-template">
+            <div class="modal search_prompt_modal" id="my_modal">
+                <ion-header-bar class="model_header_style alpha_header">
+
+
+                </ion-header-bar>
+                <ion-content has-bouncing="false" has-header="true" scroll="false">
+                    <div class="custom_modal_popup">
+                        <div class="popup-head"><h3 class="popup-title ng-binding search_header_custom">Edit Search</h3>
+                        </div>
+                        <div id="search-bar-home">
+                            <div class="item item-input-inset no-border">
+                                <label class="item-input-wrapper theme-border" id="search-input">
+                                    <i class="icon ion-search placeholder-icon"></i>
+                                    <input type="text" placeholder="Search" ng-model="data.searchStr">
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="padding">
+                            <!--    <ion-google-place class="full-width theme-border" placeholder="Change Address"
+                                                  ng-change="addressChanged(data.formatted_address)"
+                                                  ng-model="data.formatted_address"/>-->
+                            <input type="text" placeholder="Change Address" class="full-width theme-border"
+                                   readonly="readonly"
+                                   ng-model="data.formatted_address" ng-click="getLocationAddress()"
+                                    >
+                        </div>
+                        <div class="padding">
+                            <input type="text" placeholder="Pick a date" class="full-width theme-border"
+                                   readonly="readonly"
+                                   ng-model="data.formattedDateSearch" ng-click="openDatePickerSearch()"
+                                   ng-bind="data.userSelectedDate ">
+                        </div>
+                        <p class="padding">
+                            <button class="button  button-theme  button-calm button-center"
+                                    ng-click="closeOptionModal()">
+                                UPDATE
+                            </button>
+                        </p>
+                    </div>
+                </ion-content>
+            </div>
+        </script>
+        <script id="listOfPosts.html" type="text/ng-template">
+            <div class="modal search_prompt_modal">
+                <ion-header-bar class="model_header_style">
+                    <h1 class="title">Edit Search</h1>
+
+                    <div class="button button-clear" ng-click="closeListModel()"><span
+                            class="white icon ion-android-close"></span></div>
+                </ion-header-bar>
+                <ion-content>
+                    <ul class="list padding" ng-repeat="searcPosts in posedLists track by $index">
+                        <li class="eachSearchedPost item" ng-click="showDetails(searcPosts.Post.post_id)">
+                            <div class="search_posted_title">
+                                <h3>{{searcPosts.Post.title}}</h3>
+                            </div>
+                            <div class="image_text_container clearfix">
+                                <div class="image_container">
+                                    <img actual-src="{{ROUTES}}uploads/post/{{searcPosts.Post.image}}"
+                                         ng-src="img/default.png"/>
+                                </div>
+                                <div class="post_text">
+                                    <p><b>Summary <i class="ionic ion-document"></i> </b> {{searcPosts.Post.summary}}
+                                    </p>
+
+                                    <p><b>From <i class="ionic ion-clock"></i></b> {{searcPosts.Post.from_date}}</p>
+
+                                    <p><b>End <i class="ionic ion-clock"></i></b> {{searcPosts.Post.from_date}}</p>
+
+                                    <p><b>Venue <i class="ionic ion-clock"></i></b> {{searcPosts.Post.venue_time}}</p>
+                                    <span><i class="ionic ion-checkmark"></i>33</span><span><i
+                                        class="ionic ion-chatbubbles"></i>33</span><span><i class="ionic ion-star"></i>33</span>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </ion-content>
+            </div>
+        </script>
+
+        <script id="changeAddress.html" type="text/ng-template">
+            <div class="modal">
+                <div class="pick_location clearfix">
+                    <ion-header-bar class="model_header_style_address">
+                      <button ng-click="goBacktoSearch()" class="button button-clear button-assertive">
+                        <i class="icon ion-android-arrow-back"></i>
+                      </button>
+                      <h4>Search filter</h4>
+                      <button ng-click="applyFilter()" style="position: absolute;right: 10px" class="button button-clear button-assertive float-right">
+                        <i class="icon ion-checkmark"></i>
+                      </button>
+                        <!--<label class="item-input-wrapper">-->
+                            <!--<input class="search_address no-border-search" id="address_field" ng-model="data.searchAddress" type="text"-->
+                                   <!--placeholder="Type Address here">-->
+                        <!--</label>-->
+                        <!--&lt;!&ndash; <button class="button button-clear button-assertive" ng-click="closeAddressModal()">-->
+                             <!--Clear-->
+                         <!--</button>&ndash;&gt;-->
+                        <!--<button class="button button-clear button-assertive" ng-click="clearAddressField()">-->
+                            <!--Clear-->
+                        <!--</button>-->
+
+                    </ion-header-bar>
+
+                    <ion-content has-bouncing="fasle" has-header="false">
+
+
+
+                        <div class="item item-input-inset">
+                          <label class="item-input-wrapper">
+                            <input class="search_address no-border-search" id="address_field" ng-model="data.searchAddress" type="text"
+                                   placeholder="Type Address here">
+                          </label>
+                          <!-- <button class="button button-clear button-assertive" ng-click="closeAddressModal()">
+                               Clear
+                           </button>-->
+                          <button class="button button-clear button-assertive" ng-click="clearAddressField()">
+                            Clear
+                          </button>
+                        </div>
+
+                        <!--<div style="display:block;padding:10px">
+                                <input type="text" class="no-border-search" style="float:left;width:84%" ng-model="data.searchCategory" placeholder="Enter search Keyword">
+                                <button  class="button button-clear button-assertive" style="float:right" ng-click="data.searchCategory = ''">Clear</button>
+                        </div>-->
+
+
+
+
+                        <div class="item item-input-inset">
+                          <label class="item-input-wrapper">
+                            <input type="search" class="no-border-search" ng-model="data.searchCategory" placeholder="Enter search Keyword">
+                          </label>  
+                            <a  class="button button-clear button-assertive" clear-element >Clear</a>
+                        </div>
+
+
+
+
+                        <ion-list>
+                            <ion-item ng-repeat="location in locations" type="item-text-wrap"
+                                      ng-click="selectLocation(location)">
+                                {{location.formatted_address}}
+                            </ion-item>
+
+                        </ion-list>
+                        <div class="recent_address clearfix" ng-show="recentaddressShow">
+                            <h4 style="padding-left: 15px;display: inline-block">Recently Searched</h4> <button style="float: right" class="button button-clear button-assertive" ng-click="clearRecent()">Clear history</button>
+                            <ion-list>
+                                <ion-item ng-repeat="location in recentlyAddArr track by $index" style="width: 100%" type="item-text-wrap"
+                                          ng-click="selectLocation(location)">
+                                    {{location.formatted_address}}
+                                </ion-item>
+
+                            </ion-list>
+                        </div>
+                    </ion-content>
+
+                </div>
+            </div>
+        </script>
+
+    </ion-content>
+</ion-view>
+

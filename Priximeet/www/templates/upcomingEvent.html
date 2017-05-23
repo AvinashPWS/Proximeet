@@ -1,0 +1,324 @@
+<ion-view view-title="Upcoming ProxiMeet Events">
+    <ion-nav-buttons side="right">
+        <button ng-click="gotoMenuThree()" style="border: 1px solid #fff;border-radius: 50%;" class="button button-icon button-clear ion-more theme_icon_button">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+      <!--  <div class="error-message" ng-show="showLoginError">
+            <span><i class="ionic ion-alert-circled"></i></span>
+
+            <h3>Please login to continue</h3>
+        </div>-->
+
+        <div ng-hide="showLoginError" class="lrPadding" ng-repeat="eachUpcomingEvent in upcomingEvent track by $index">
+            <div class="paddetails" ng-click="showFullAd(eachUpcomingEvent)">
+                <div class="adsttbox">
+                    <div class="adsurbox"><img src="img/adsupi.png" width="15" height="19"></div>
+                    <div class="adsrtbox"><img src="img/adsrat.png" width="15" height="16"></div>
+                    <h4 class="add_title ng-binding">{{eachUpcomingEvent.Post.title}}</h4>
+
+
+
+                </div>
+                <div class="row adsdetails">
+                    <div class="col col-50">
+                        <div class="add_img_wapper"><img actual-src="{{ROUTES}}uploads/post/{{eachUpcomingEvent.Post.image}}"
+                                                         ng-src="{{ROUTES}}uploads/categories/{{eachUpcomingEvent.Category.file_path}}" width="100%" height="auto"></div>
+                    </div>
+                    <div class="col col-50">
+                        <p class="ng-binding twosided">{{eachUpcomingEvent.Post.summary}}</p>
+                    </div>
+                </div>
+                <div class="detadhere">
+                    <div class="dkbox">
+                        <p>Starts from</p>
+                    </div>
+                    <div class="ltbox">
+                        <p class="ng-binding">{{eachUpcomingEvent.Post.from_date}}</p>
+                    </div>
+                    <div class="dkbox">
+                        <p>Price</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{eachUpcomingEvent.Post.costing}}</p>
+                    </div>
+                </div>
+                <div class="detadhere">
+                    <div class="dkbox">
+                        <p>Ends on</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{eachUpcomingEvent.Post.to_date}}</p>
+                    </div>
+                    <div class="dkbox">
+                        <p>Rating</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{eachUpcomingEvent.Post.rating}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <p class="padding"></p>
+
+
+        <script id="viewPostedAd.html" type="text/ng-template">
+            <div class="modal">
+                <div class="pick_location clearfix">
+                    <ion-header-bar class="model_header_style">
+                        <h1 class="title text_white" ng-bind="eachPostedObj.Post.title">Ad Name</h1>
+
+                        <div class="button button-clear" ng-click="closeModal()"><span class="icon ion-checkmark text_white"></span>
+                        </div>
+                    </ion-header-bar>
+                    <ion-content has-bouncing="true" has-header="true" class="posted_list_view_container clearfix">
+                        <div class="image_container">
+                            <img actual-src="{{ROUTES}}uploads/post/{{eachPostedObj.Post.image}}"
+                                 ng-src="{{ROUTES}}uploads/categories/{{eachPostedObj.Category.file_path}}"/>
+                        </div>
+                        <div class="detail_wrapper clearfix">
+                          <div class="row full-backgnd">
+                            <div class="col-33">
+                              <div class="lpart-Table">
+                                Provided by
+                              </div>
+                            </div>
+                            <div class="col-67">
+                              <div class="rpart-Table">
+                                {{eachPostedObj.User.name}}
+                              </div>
+                            </div>
+                          </div>
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Title
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.title}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Summary
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.summary}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Purpose
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.purpose}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        From Date
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.from_date}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        To Date
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.to_date}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Venue Time
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.from_date}} {{eachPostedObj.Post.from_time}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Location
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.location}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row full-backgnd" ng-show="isInfoShown">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Phone
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.phone_no}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row full-backgnd" ng-show="isInfoShown">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Email
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.email}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Cost
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.costing}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row full-backgnd">
+                                <div class="col-33">
+                                    <div class="lpart-Table">
+                                        Total Slots
+                                    </div>
+                                </div>
+                                <div class="col-67">
+                                    <div class="rpart-Table">
+                                        {{eachPostedObj.Post.no_of_slots}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                        <div class="padding">
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-flag"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Title</h4>
+                                    <p class="detail_text">{{eachPostedObj.title}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-clipboard"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Summary</h4>
+                                    <p class="detail_text">{{eachPostedObj.summary}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-clipboard"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Purpose</h4>
+                                    <p class="detail_text">{{eachPostedObj.purpose}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-calendar"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">From Date</h4>
+                                    <p class="detail_text">{{eachPostedObj.from_date}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-calendar"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">To Date</h4>
+                                    <p class="detail_text">{{eachPostedObj.to_date}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-android-time"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Venue Time</h4>
+                                    <p class="detail_text">{{eachPostedObj.from_date}} {{eachPostedObj.from_time}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-ios-location"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Location</h4>
+                                    <p class="detail_text">{{eachPostedObj.location}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-ios-pulse-strong"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Status</h4>
+                                    <p class="detail_text">{{eachPostedObj.status}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-android-call"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Phone</h4>
+                                    <p class="detail_text">{{eachPostedObj.phone_no}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-android-mail"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Email</h4>
+                                    <p >{{eachPostedObj.email}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-cash"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Cost</h4>
+                                    <p class="detail_text">{{eachPostedObj.costing}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="detail-icons icon ion-ribbon-b"></i></div>
+                                <div class="col col-80">
+                                    <h4 class="detail_header">Slots</h4>
+                                    <p class="detail_text">{{eachPostedObj.no_of_slots}}</p>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--{{eachPostedObj}}-->
+                    </ion-content>
+                </div>
+            </div>
+        </script>
+
+    </ion-content>
+</ion-view>

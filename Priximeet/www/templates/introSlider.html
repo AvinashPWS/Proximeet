@@ -1,0 +1,55 @@
+<div class="flash-background">
+    <div class="slider-intro-container clearfix">
+        <div class="header" ng-bind-html="headerText"></div>
+        <br>
+        <div class="image-slider-wrap">
+            <div class="image-slider-container clearfix">
+                <ion-slide-box on-slide-changed="slideHasChanged($index)">
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/2.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/6.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/78.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/3.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/4.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/7.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/9.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/5.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/10.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue"><img src="img/slidercontent/11.png"></div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="box blue">
+                            <div>
+
+                            </div>
+                        </div>
+                    </ion-slide>
+                </ion-slide-box>
+                <div class="footer"  ng-bind-html="footerTExt"></div>
+                <div style="text-align: center">
+                    <button class="button button-theme white-button" ng-show="showSkipIntroBtn" ng-click="slideHasChanged(10)">Skip Intro</button>
+                    <button class="button button-theme white-button" ng-show="!showSkipIntroBtn" ng-click="gotoHelp()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

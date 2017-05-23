@@ -1,0 +1,340 @@
+angular.module('ionicApp.initCtrl', ['ngCordova', 'ngCordovaOauth', 'ionicApp.factories'])
+  .controller('initCtrl', function ($scope, userLogin, $rootScope, $ionicPopup, $templateCache, $ionicPlatform,
+                                    $ionicHistory, $ionicModal, $state, $ionicSideMenuDelegate, $http, Crud) {
+
+
+    var restoreLoading = $rootScope.$$listeners["loading:show"];
+
+    $rootScope.$$listeners["loading:show"] = [];
+    $scope.$on('$ionicView.beforeLeave', function () {
+      $rootScope.$$listeners["loading:show"] = restoreLoading;
+      sessionStorage.clear();
+    });
+
+    sessionStorage.category = "";
+
+    $ionicSideMenuDelegate.canDragContent(false);
+    $ionicHistory.clearCache();
+    $ionicHistory.clearHistory();
+    if (localStorage.hasOwnProperty("loginMethod") == true) {
+      /*  if (localStorage['email'] && localStorage['name'] && localStorage['phone_no'] && localStorage['user_id'] && localStorage['user_name']) {
+       //alert("user logged in...")
+       userLogin.setLoginStat(true);
+       userLogin.setUserId(localStorage['user_id']);
+       setTimeout(function () {
+
+       $ionicSideMenuDelegate.canDragContent(true);
+       $state.go('green.search');
+       $ionicHistory.clearCache();
+       $ionicHistory.clearHistory();
+       $ionicHistory.nextViewOptions({
+       disableBack: true
+       });
+       localStorage.notificationDelay = 0;
+       }, 5000);
+       }*/
+
+      switch (localStorage["loginMethod"]) {
+        case "google":
+          if (localStorage.hasOwnProperty("email")) {
+            Crud.create({root: "users/rest_email_check.json"}, {"email": localStorage.email}, function (response) {
+              if (response.status) {
+                if(response.result.User.phone_verify == "1"){
+                  sessionStorage.clear();
+                  localStorage.name = response.result.User.name;
+                  localStorage.user_name = response.result.User.user_name;
+                  localStorage.phone_no = response.result.User.phone_no;
+                  localStorage.email = response.result.User.email;
+                  localStorage.email_verify = response.result.User.email_verify;
+                  localStorage.image_path = response.result.User.image_path;
+                  localStorage.user_id = response.result.User.user_id;
+                  localStorage.user_loc = response.result.User.address;
+                  localStorage.privacy = response.result.User.privacy_setting;
+                  localStorage.loginMethod = "google";
+                  $scope.testLog = true;
+                  userLogin.setLoginStat(true);
+                  userLogin.setUserId(response.result.User.user_id);
+
+
+                  $state.go('green.search');
+                  $ionicHistory.clearCache();
+                  $ionicHistory.clearHistory();
+                  $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+                }else{
+                  userLogin.setLoginStat(false);
+                  localStorage.removeItem('user_id');
+                  $ionicSideMenuDelegate.canDragContent(true);
+                  $state.go('green.search');
+                  $ionicHistory.clearCache();
+                  $ionicHistory.clearHistory();
+                  $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+                  localStorage.notificationDelay = 0;
+                }
+
+              } else {
+                userLogin.setLoginStat(false);
+                localStorage.removeItem('user_id');
+                $ionicSideMenuDelegate.canDragContent(true);
+                $state.go('green.search');
+                $ionicHistory.clearCache();
+                $ionicHistory.clearHistory();
+                $ionicHistory.nextViewOptions({
+                  disableBack: true
+                });
+                localStorage.notificationDelay = 0;
+              }
+            })
+          } else {
+            userLogin.setLoginStat(false);
+            localStorage.removeItem('user_id');
+            $ionicSideMenuDelegate.canDragContent(true);
+            $state.go('green.search');
+            $ionicHistory.clearCache();
+            $ionicHistory.clearHistory();
+            $ionicHistory.nextViewOptions({
+              disableBack: true
+            });
+            localStorage.notificationDelay = 0;
+          }
+
+          break;
+        case "facebook":
+          if (localStorage.hasOwnProperty("email")) {
+            Crud.create({root: "users/rest_email_check.json"}, {"email": localStorage.email}, function (response) {
+              if (response.status) {
+                if(response.result.User.phone_verify == "1"){
+                  sessionStorage.clear();
+                  localStorage.name = response.result.User.name;
+                  localStorage.user_name = response.result.User.user_name;
+                  localStorage.phone_no = response.result.User.phone_no;
+                  localStorage.email = response.result.User.email;
+                  localStorage.email_verify = response.result.User.email_verify;
+                  localStorage.image_path = response.result.User.image_path;
+                  localStorage.user_id = response.result.User.user_id;
+                  localStorage.user_loc = response.result.User.address;
+                  localStorage.privacy = response.result.User.privacy_setting;
+                  localStorage.loginMethod = "facebook";
+                  $scope.testLog = true;
+                  userLogin.setLoginStat(true);
+                  userLogin.setUserId(response.result.User.user_id);
+
+
+                  $state.go('green.search');
+                  $ionicHistory.clearCache();
+                  $ionicHistory.clearHistory();
+                  $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+                }else{
+                  userLogin.setLoginStat(false);
+                  localStorage.removeItem('user_id');
+                  $ionicSideMenuDelegate.canDragContent(true);
+                  $state.go('green.search');
+                  $ionicHistory.clearCache();
+                  $ionicHistory.clearHistory();
+                  $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+                  localStorage.notificationDelay = 0;
+                }
+
+              } else {
+                userLogin.setLoginStat(false);
+                localStorage.removeItem('user_id');
+                $ionicSideMenuDelegate.canDragContent(true);
+                $state.go('green.search');
+                $ionicHistory.clearCache();
+                $ionicHistory.clearHistory();
+                $ionicHistory.nextViewOptions({
+                  disableBack: true
+                });
+                localStorage.notificationDelay = 0;
+              }
+            })
+          } else {
+            userLogin.setLoginStat(false);
+            localStorage.removeItem('user_id');
+            $ionicSideMenuDelegate.canDragContent(true);
+            $state.go('green.search');
+            $ionicHistory.clearCache();
+            $ionicHistory.clearHistory();
+            $ionicHistory.nextViewOptions({
+              disableBack: true
+            });
+            localStorage.notificationDelay = 0;
+          }
+          break;
+        case "noramal":
+          if (localStorage['email'] && localStorage['name'] && localStorage['phone_no'] && localStorage['user_id'] && localStorage['user_name']) {
+            //alert("user logged in...")
+            userLogin.setLoginStat(true);
+            userLogin.setUserId(localStorage['user_id']);
+            setTimeout(function () {
+
+              $ionicSideMenuDelegate.canDragContent(true);
+              $state.go('green.search');
+              $ionicHistory.clearCache();
+              $ionicHistory.clearHistory();
+              $ionicHistory.nextViewOptions({
+                disableBack: true
+              });
+              localStorage.notificationDelay = 0;
+            }, 5000);
+          }
+          break;
+        default :
+          userLogin.setLoginStat(false);
+          $ionicSideMenuDelegate.canDragContent(true);
+          $state.go('green.search');
+          $ionicHistory.clearCache();
+          $ionicHistory.clearHistory();
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          localStorage.notificationDelay = 0;
+
+      }
+
+
+    }
+
+    /*        else if (localStorage.hasOwnProperty("google_accessToken") === true) {
+     var gDirectLogin = {};
+     $http.get("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + localStorage.google_accessToken)
+     .success(function (data, status, headers, config) {
+     gDirectLogin.email = data.email;
+     console.log(data);
+     console.log(gDirectLogin);
+     Crud.create({
+     root: "users/rest_social_login.json"
+     }, gDirectLogin, function (response) {
+     if (response.status) {
+     console.log("set userlogin true start")
+     userLogin.setLoginStat(true);
+     userLogin.setUserId(localStorage['user_id']);
+     console.log("set userlogin true end")
+
+     localStorage.name = data.name;
+     localStorage.user_name = data.given_name;
+     localStorage.phone_no = 0;
+     localStorage.email = data.email;
+     localStorage.image_path = data.picture;
+     localStorage.user_id = response.id;
+
+
+     $ionicSideMenuDelegate.canDragContent(true);
+     $state.go('green.search');
+     $ionicHistory.clearCache();
+     $ionicHistory.clearHistory();
+     $ionicHistory.nextViewOptions({
+     disableBack: true
+     });
+
+     } else {
+     userLogin.setLoginStat(false);
+     $ionicSideMenuDelegate.canDragContent(true);
+     $state.go('green.search');
+     $ionicHistory.clearCache();
+     $ionicHistory.clearHistory();
+     $ionicHistory.nextViewOptions({
+     disableBack: true
+     });
+     }
+     })
+
+     })
+     .error(function (data, status, headers, config) {
+     console.log(data);
+
+     userLogin.setLoginStat(false);
+     $ionicSideMenuDelegate.canDragContent(true);
+     $state.go('green.search');
+     $ionicHistory.clearCache();
+     $ionicHistory.clearHistory();
+     $ionicHistory.nextViewOptions({
+     disableBack: true
+     });
+     });
+     }
+
+     else if (localStorage.hasOwnProperty("facebook_accessToken") === true) {
+     var fDirectLogin = {};
+     $http.get("https://graph.facebook.com/v2.2/me", {
+     params: {
+     access_token: localStorage.facebook_accessToken,
+     fields: "id,name,gender,location,website,picture,relationship_status,email",
+     format: "json"
+     }
+     }).then(function (result) {
+     //console.log(result.data);
+     fDirectLogin.email = result.data.email;
+     var regFacebookObj = {};
+     //alert(JSON.stringify(data));
+
+     regFacebookObj.name = result.data.name;
+     regFacebookObj.user_name = result.data.name;
+     regFacebookObj.email = result.data.email;
+     regFacebookObj.phone_no = 0;
+     regFacebookObj.social_network = "facebook";
+     regFacebookObj.image_path = 'http://graph.facebook.com/' + result.data.id + '/picture?type=normal';
+     regFacebookObj.app_id = 1;
+
+     Crud.create({
+     root: "users/rest_social_login.json"
+     }, fDirectLogin, function (response) {
+     console.log(response);
+
+     if (response.status) {
+     userLogin.setLoginStat(true);
+     userLogin.setUserId(response.id);
+     localStorage.name = result.data.name;
+     localStorage.user_name = result.data.name;
+     localStorage.phone_no = 0;
+     localStorage.email = result.data.email;
+     localStorage.image_path = 'http://graph.facebook.com/' + result.data.id + '/picture?type=normal';
+     localStorage.user_id = response.id;
+
+     $scope.testLog = true;
+
+
+
+     $state.go('green.search');
+     $ionicHistory.clearCache();
+     $ionicHistory.clearHistory();
+     $ionicHistory.nextViewOptions({
+     disableBack: true
+     });
+     }
+     else {
+     console.log("error");
+     }
+     })
+
+
+     }, function (error) {
+     //alert("There was a problem getting your profile.  Check the logs for details.");
+     console.log(error);
+     });
+     }*/
+
+    else {
+      setTimeout(function () {
+
+        userLogin.setLoginStat(false);
+        $ionicSideMenuDelegate.canDragContent(true);
+        $state.go('green.search');
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
+        localStorage.notificationDelay = 0;
+      }, 5000);
+    }
+
+
+  });

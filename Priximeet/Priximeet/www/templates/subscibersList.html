@@ -1,0 +1,178 @@
+<ion-view ng-controller="subscibersListCtrl" view-title="Subscribers">
+    <ion-nav-buttons side="right"  ng-show="enableReview">
+      <button class="button button-icon button-clear ion-android-share-alt"
+              ng-click="shareMyEvent()">
+        <span ng-click="enableReview&&gotoReviews()">
+             <div class="card-count"><p ng-show=showReviewBubble>{{reviewLen}}</p></div>
+
+
+
+
+          </button>
+        <button  ng-show=showReviewBubble class="button button-icon button-clear ion-chatbubbles list-header-button-margin-right"
+                >
+
+
+
+        </button>
+        </span>
+
+        <!--  <button class="button button-icon button-clear ion-ios-search-strong" ng-click="openOptionModal()">
+          </button>-->
+
+
+    </ion-nav-buttons>
+    <ion-content class="">
+
+        <!--<div class="list">-->
+
+        <!--<div ng-repeat="lst in list">-->
+        <!--<a class="item item-icon-right" ng-click="prepareObjAndChat(lst)">-->
+
+        <!--{{lst.User.name}}-->
+        <!--<i class="icon ion-android-textsms theme-icon"></i>-->
+        <!--</a>-->
+        <!--</div>-->
+
+
+        <!--</div>-->
+        <!--<p>{{list}}</p>-->
+
+
+
+        <div class="dtl_div  clearfix">
+            <div class="paddetails">
+                <div class="adsttbox">
+                    <div class="adsurbox"><img src="img/adsupi.png" width="15" height="19"></div>
+                    <div class="adsrtbox"><img src="img/adsrat.png" width="15" height="16"></div>
+                    <h4 class="add_title ng-binding">{{detailSub.title}}</h4>
+
+
+                </div>
+                <div class="row adsdetails">
+                    <div class="sub_img_wrapper clearfix">
+                        <div class="col col-100">
+                            <div class="add_img_wapper"><img
+                                    actual-src="{{ROUTES}}uploads/post/{{detailSub.image}}"
+                                    ng-src="{{ROUTES}}uploads/categories/{{catImg}}" width="100%" height="auto"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="detadhere">
+                    <div class="dkbox">
+                        <p>Start Date</p>
+                    </div>
+                    <div class="ltbox">
+                        <p class="ng-binding">{{detailSub.from_date}}</p>
+                    </div>
+                    <div class="dkbox">
+                        <p>Price</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{detailSub.costing}}</p>
+                    </div>
+                </div>
+                <div class="detadhere">
+                    <div class="dkbox">
+                        <p>End Date</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{detailSub.to_date}}</p>
+                    </div>
+                    <div class="dkbox">
+                        <p>Rating</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{detailSub.rating}}</p>
+                    </div>
+                </div>
+                <div class="detadhere">
+                    <div class="dkbox">
+                        <p>Phone</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{detailSub.phone_no}}</p>
+                    </div>
+                    <div class="dkbox">
+                        <p>Status</p>
+                    </div>
+                    <div class="ltbox">
+                        <p>{{detailSub.status}}</p>
+                    </div>
+                </div>
+             <!---->
+              <div class="detadhere">
+                <div class="dkbox">
+                  <p>Responses</p>
+                </div>
+                <div class="ltbox">
+                  <p>{{detailSub.total_responses}}</p>
+                </div>
+                <div class="dkbox">
+                  <p>Accepted</p>
+                </div>
+                <div class="ltbox">
+                  <p>{{detailSub.accepted_count}}</p>
+                </div>
+              </div>
+              <!-- -->
+              <div class="detadhere">
+                <div class="dkbox">
+                  <p>Blocked</p>
+                </div>
+                <div class="ltbox">
+                  <p>{{detailSub.block_count}}</p>
+                </div>
+                <div class="dkbox">
+                  <p>Rejected</p>
+                </div>
+                <div class="ltbox">
+                  <p>{{detailSub.rejected_count}}</p>
+                </div>
+              </div>
+
+            </div>
+        </div>
+      <div style="width: 100%;background: #E3DBCF;padding-right: 5px" class="clearfix">
+        <div style="float: right;display: inline;">
+          <span class="heading_sub">Accept - </span><i class="accept-color ion-android-done"></i>
+          <span class="heading_sub">Reject- </span><i class="reject-color ion-android-close"></i>
+          <span class="heading_sub">Block - </span><i class="locked_red ion-locked"></i>
+          <span class="heading_sub">Un-Block - </span><i class="locked_green ion-unlocked"></i>
+        </div>
+      </div>
+        <ion-list class="subscribers_list_custom">
+            <!--
+                        <ion-item ng-repeat="lst in list"
+                                  class="item-remove-animate item-icon-right" ng-click="prepareObjAndChat(lst)">
+                             {{ lst.User.name }}
+                            <i class="icon ion-ios-arrow-right"></i>
+                        </ion-item>
+            -->
+
+            <!--<ion-item class="sub-item" ng-repeat="lst in list track by $index">-->
+            <!--<div class="row" style="padding: 0px">-->
+            <!--<div class="col-50 sub-name"  style="padding: 0px"  ng-click="prepareObjAndChat(lst)">-->
+            <!--<button class="col-100 button button-clear" style="text-align: left;width: 100%"> {{ lst.User.name }}</button>-->
+            <!--</div>-->
+            <!--<div class="col-50 sub-buttons" style="padding: 0px">-->
+            <!--<button class=" button button-clear icon ion-android-remove-circle"></button>-->
+            <!--&lt;!&ndash;<button class=" button button-clear icon ion-ios-close"></button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<button class=" button button-clear ion-android-person-add"></button>&ndash;&gt;-->
+            <!--<button class=" button button-clear icon ion-android-done"></button>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--</ion-item>-->
+
+            <ion-item style="padding: 0" ng-repeat="lst in list track by $index">
+                <sub-list list-obj="{{lst}}" postends="{{postendson}}" list-name="{{lst.User.name}}"></sub-list>
+            </ion-item>
+
+
+        </ion-list>
+
+
+    </ion-content>
+</ion-view>

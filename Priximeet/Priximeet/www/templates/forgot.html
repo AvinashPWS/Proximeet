@@ -1,0 +1,19 @@
+<ion-view view-title="Recover Password">
+  <ion-content ng-controller="forgotCtrl">
+    <div class="padding">
+      <form name="forgotForm" novalidate="">
+        <div>
+          <label class="item item-input item-stacked-label theme-label"
+                 ng-class="{ 'has-error-lr' : forgotForm.email.$invalid  && forgotForm.$submitted}">
+
+            <input type="email" ng-model="user.email" name="email" placeholder="User's Email ID"
+                   required="required">
+          </label>
+        </div>
+
+        <button class=" button-theme button button-block " ng-click="validateEmail(forgotForm)">Send Password</button>
+
+      </form>
+    </div>
+  </ion-content>
+</ion-view>
